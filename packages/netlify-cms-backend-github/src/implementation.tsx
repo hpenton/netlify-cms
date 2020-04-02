@@ -60,6 +60,7 @@ export default class GitHub implements Implementation {
   token: string | null;
   squashMerges: boolean;
   useGraphql: boolean;
+  cacheMode: string;
   _currentUserPromise?: Promise<GitHubUser>;
   _userIsOriginMaintainerPromises?: {
     [key: string]: Promise<boolean>;
@@ -101,6 +102,7 @@ export default class GitHub implements Implementation {
     this.useGraphql = config.backend.use_graphql || false;
     this.mediaFolder = config.media_folder;
     this.previewContext = config.backend.preview_context || '';
+    this.cacheMode = config.backend.cache_mode || 'never';
     this.lock = asyncLock();
   }
 

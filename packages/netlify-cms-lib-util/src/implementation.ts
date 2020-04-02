@@ -75,6 +75,7 @@ export type Config = {
     branch?: string;
     api_root?: string;
     squash_merges?: boolean;
+    cache_mode?: string;
     use_graphql?: boolean;
     preview_context?: string;
     identity_url?: string;
