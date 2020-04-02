@@ -781,4 +781,33 @@ describe('github API', () => {
     expect(api.request).toHaveBeenCalledTimes(1);
     expect(api.request).toHaveBeenCalledWith(`/repos/repo/commits/${sha}/status`);
   });
+
 });
+
+describe('cache-buster fix', () => {
+
+  beforeEach(() => {
+    const fetch = jest.fn();
+    global.fetch = fetch;
+    global.Date = jest.fn(() => ({ getTime: () => 1000 }));
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  test('cache-buster should be on by default', () => {
+    const options = {};
+    const api = new API({ repo: 'repo' });
+    const url = api.urlFor("/somePath", options);
+    expect(url.split('?').filter(el => el.startsWith('ts=1000')).length).toBe(1);
+  });
+
+  test('cache-buster should be removable by config', () => {
+    const options = {};
+    const api = new API({ repo: 'repo', cacheMode: 'optimised' });
+    const url = api.urlFor("/somePath", options);
+    expect(url.split('?').filter(el => el.startsWith('ts=1000')).length).toBe(0);
+  });
+
+})
