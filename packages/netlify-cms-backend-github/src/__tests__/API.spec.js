@@ -810,4 +810,11 @@ describe('cache-buster fix', () => {
     expect(url.split('?').filter(el => el.startsWith('ts=1000')).length).toBe(0);
   });
 
+  test('cache-buster should be added if config specifies never cache', () => {
+    const options = {};
+    const api = new API({ repo: 'repo', cacheMode: 'never' });
+    const url = api.urlFor("/somePath", options);
+    expect(url.split('?').filter(el => el.startsWith('ts=1000')).length).toBe(1);
+  });
+
 })

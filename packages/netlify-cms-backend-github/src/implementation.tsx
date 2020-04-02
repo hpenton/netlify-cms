@@ -249,6 +249,7 @@ export default class GitHub implements Implementation {
       originRepo: this.originRepo,
       apiRoot: this.apiRoot,
       squashMerges: this.squashMerges,
+      cacheMode: this.cacheMode,
       useOpenAuthoring: this.useOpenAuthoring,
       initialWorkflowStatus: this.options.initialWorkflowStatus,
     });
